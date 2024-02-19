@@ -72,16 +72,3 @@ CREATE TABLE skenirano (
     FOREIGN KEY (id_korisnik) REFERENCES korisnik(id) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
-INSERT INTO skenirano(id_kartice, id_korisnik) VALUES
-(1,1);
-
-SELECT * FROM skenirano
-LEFT JOIN kartice ON kartice.id = skenirano.id_kartice
-LEFT JOIN korisnik ON korisnik.id = skenirano.id_korisnik
-LEFT JOIN proizvod ON proizvod.id_kartice = kartice.id;
-
-INSERT INTO skenirano(id_kartice, id_korisnik) VALUES
-(2, 1);
-
-SELECT id FROM kartice
-WHERE nuid = 'b4f8011e'

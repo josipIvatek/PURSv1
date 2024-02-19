@@ -29,11 +29,11 @@ byte nuidPICC[4];
 // Kreiranje json dokumenta
 StaticJsonDocument<200> doc;
 
-const char* SSID = "MOJINTERNET";
-const char* PASSWORD = "nikokaohajdukizsplita";
-const char* USER_ID = 3;
+const char* SSID = "Komusar-O-2.4G";
+const char* PASSWORD = "Komusar11";
+const int USER_ID = 4;
 
-const char *serverName = "http://192.168.22.113/rfid"; //Domena servera
+const char *serverName = "http://192.168.100.24:80/rfid"; //Domena servera
 HTTPClient http; //Instanca klase
 
 void setup() { 
@@ -79,7 +79,7 @@ void loop() {
   
   String card_uid = stringHex(rfid.uid.uidByte, rfid.uid.size);
   doc["nuid"] = card_uid;
-  doc["user_id"] = USER_ID
+  doc["user_id"] = USER_ID;
 
   String json;
   serializeJson(doc, json);
