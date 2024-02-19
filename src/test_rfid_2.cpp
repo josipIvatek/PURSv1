@@ -31,6 +31,7 @@ StaticJsonDocument<200> doc;
 
 const char* SSID = "MOJINTERNET";
 const char* PASSWORD = "nikokaohajdukizsplita";
+const char* USER_ID = 3;
 
 const char *serverName = "http://192.168.22.113/rfid"; //Domena servera
 HTTPClient http; //Instanca klase
@@ -77,7 +78,8 @@ void loop() {
   Serial.println();
   
   String card_uid = stringHex(rfid.uid.uidByte, rfid.uid.size);
-  doc = card_uid;
+  doc["nuid"] = card_uid;
+  doc["user_id"] = USER_ID
 
   String json;
   serializeJson(doc, json);
