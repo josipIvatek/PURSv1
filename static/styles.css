@@ -12,16 +12,20 @@ body{
 header {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    padding: 20px;
     }
 
 .lijevo{
     display: flex;
+    flex-direction: row;
     float: left;
     align-items: center;
+    gap: 20px;
 }
-
+ 
 .lijevo > p {
     display: inline;
+    font-weight: bold;
     color: #0a093a;
     margin-right: 20px;
 }
@@ -47,6 +51,9 @@ a {
 main {
     justify-content: center;
     display: flex;
+    flex-direction: column;
+    padding: 100px;
+    text-align: center;
 }
 
 table {    
@@ -72,4 +79,13 @@ thead{
 tbody{
     background-color: #cbeee8;
     text-align: center;
+}
+
+form input {
+    margin-bottom: 5px;
+    padding: 5px 3px;
+}
+
+form button {
+    padding: 10px 20px;
 }

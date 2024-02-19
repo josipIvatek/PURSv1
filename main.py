@@ -1,6 +1,7 @@
 from flask import Flask, url_for, redirect, request, make_response, render_template, session, g 
 import jinja2
 import MySQLdb
+import json
 
 app = Flask("Prva flask aplikacija")
 
@@ -27,27 +28,34 @@ def after_request_func(response):
 
 @app.get('/')
 def index():
-    g.cursor.execute(render_template('getKorisnike.sql'))
-    korisnici = g.cursor.fetchall()
-    list_korisnika = [
-    {'id': id,'ime': ime,'prezime': prezime,'username': username,'id_ovlasti': id_ovlasti}
-    for id, ime, prezime, username, id_ovlasti in korisnici]
-
-    g.cursor.execute(render_template('getProizvode.sql'))
-    proizvodi = g.cursor.fetchall()
-    list_proizvoda = [
-        {'id': id, 'ime': ime, 'cijena': cijena, 'barkod': barkod} 
-        for id, ime, cijena, barkod in proizvodi]
     ovl = session.get('ovlasti')
+    id_korisnika = session.get('id')
 
     id = request.args.get('id')
     if id == '1' or id == None:
-        response = render_template('index.html', naslov='Početna stranica', username=session.get('username').capitalize(), ovlasti = ovl, d=1)
+        g.cursor.execute(render_template('getSkenirano.sql', id_korisnika = id_korisnika))
+        skenirano = g.cursor.fetchall()
+        list_skeniranog = [
+            {'naziv': naziv_proizvoda,'cijena': cijena_proizvoda,'barkod': barkod}
+            for naziv_proizvoda, cijena_proizvoda, barkod in skenirano]
+        response = render_template('index.html', naslov='Početna stranica', username=session.get('username').capitalize(), ovlasti = ovl, d=1, data=list_skeniranog, col1='Naziv', col2='Cijena', col3='Barkod', col4='', col5='')
         return response, 200
-    if id == '2':   
+    
+    if id == '2':
+        g.cursor.execute(render_template('getKorisnike.sql'))
+        korisnici = g.cursor.fetchall()
+        list_korisnika = [
+            {'id': id,'ime': ime,'prezime': prezime,'username': username,'id_ovlasti': id_ovlasti}
+            for id, ime, prezime, username, id_ovlasti in korisnici]
         response = render_template('index.html', naslov='Korisnici', username=session.get('username').capitalize(), ovlasti = ovl, d=2, data=list_korisnika, col1='ID', col2='Ime', col3='Prezime', col4='Korisničko ime', col5='Ovlasti')
         return response, 200
+    
     if id == '3':
+        g.cursor.execute(render_template('getProizvode.sql'))
+        proizvodi = g.cursor.fetchall()
+        list_proizvoda = [
+            {'id': id, 'ime': ime, 'cijena': cijena, 'barkod': barkod} 
+            for id, ime, cijena, barkod in proizvodi]
         response = render_template('index.html', naslov='Proizvodi', username=session.get('username').capitalize(), ovlasti = ovl, d=3, data=list_proizvoda, col1='ID', col2='Naziv', col3='Cijena', col4='Barkod', col5='')   
         return response, 200
 
@@ -81,14 +89,20 @@ def check():
 @app.post('/rfid')
 def scanNUID():
     response = make_response()
-    nuid = request.data.decode("utf-8")
-    g.cursor.execute(render_template('getProizvod.sql', nuid=nuid))
-    proizvod = g.cursor.fetchall()
-    print(nuid)
-    print(proizvod)
+    request_body = request.data.decode("utf-8")
+    skenirano = json.loads(request_body)
+    print(skenirano)
+    g.cursor.execute(render_template('getKarticu.sql', nuid=skenirano['nuid']))
+    upit = g.cursor.fetchall()
+    if str(upit) == '()':
+        return "BAD", 404
+    id_kartice = upit[0][0]
+    id_korisnika = id_korisnika=skenirano['user_id']
+    print(f"kartica: {id_kartice}, Korisnik: {id_korisnika}")
+    g.cursor.execute(render_template('addSkenirano.sql', id_kartice=id_kartice, id_korisnika=id_korisnika))
+    print(skenirano)
     
     return response, 200
-
 
         
 

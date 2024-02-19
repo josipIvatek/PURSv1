@@ -9,9 +9,9 @@
     <body>
         <div class="glavni">
             <header>
-                <div class="lijevi">
-                    <p>{{username}}</p>
+                <div class="lijevo">
                     <img src="{{url_for('static', filename='user-icon.png')}}" alt="Logo user icon" width="70px">
+                    <p>{{username}}</p>
                 </div>
                 <img class="slika" src="{{url_for('static', filename='icon.png')}}" alt="Icon" width="70px">
             </header>
@@ -25,7 +25,6 @@
             </nav>
             <main>
                {%if d==2%}
-               <div>
                    <table>
                        <thead>
                            <th>{{col1}}</th> 
@@ -54,19 +53,14 @@
                     </table>
                     {% if ovlasti == 1 %}
                 <form action="/dodajKorisnika" method="POST">
-                        <label for="ime">Ime</label>
                         <input type="text" name="ime" placeholder="Ime" required>
                         <br>
-                        <label for="prezime">Prezime</label>
                         <input type="text" name="prezime" placeholder="Prezime" required>
                         <br>
-                        <label for="username">Username</label>
                         <input type="text" name="username" placeholder="Username" required>
                         <br>
-                        <label for="lozinka">Lozinka</label>
                         <input type="text" name="lozinka" placeholder="Lozinka" required>
                         <br>
-                        <label for="id_ovlasti">Id Ovlasti</label>
                         <input type="number" name="id_ovlasti" placeholder="Ovlasti" required>
                         <br>
                         {%if poruka %}
@@ -75,9 +69,7 @@
                         <br>
                         <button>Dodaj</button>
                 {% endif %}
-                </div>
                 {%elif d==3%}
-                <div class="proizvodi">
                 <table>
                     <thead>
                         <th>{{col1}}</th> 
@@ -123,27 +115,28 @@
                         <br>
                         <button>Dodaj</button>
                 {% endif %}
-                </div>
                 {%elif d==1%}
                 <div>
-                 <b> Skenirajte barkod na proizvodu </b> 
-                 {%if barkod%}
-                 <table>
+                 <b> Skenirajte barkod na proizvodu </b>
+                </div>
+                {%if data%}
+                <table>
                     <thead>
                         <th>{{col1}}</th> 
                         <th>{{col2}}</th> 
                         <th>{{col3}}</th> 
-                    </thead>  
-                    <tbody>
-                        <tr>
-                            <td >{{data.ime}}</td>
-                            <td >{{data.cijena}}</td>
-                            <td >{{data.barkod}}</td>
-                        </tr>
-                    </tbody>                    
-                </table>
+                     </thead>  
+                     <tbody>
+                         {%for d in data%}
+                         <tr>
+                             <td >{{d.naziv}}</td>
+                             <td >{{d.cijena}}</td>
+                             <td >{{d.barkod}}</td>
+                         </tr>
+                         {%endfor%}
+                     </tbody>   
+                 </table>
                  {%endif%}
-                </div>
                 {%endif%}
             </main>
         </div>        

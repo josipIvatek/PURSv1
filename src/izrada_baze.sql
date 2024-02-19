@@ -63,3 +63,9 @@ INSERT INTO proizvod(ime, cijena, id_kartice) VALUES
     ('Tirolska kobasica', 6, 6),
     ('Hrenovke', 5, 7),
     ('Jaja', 3, 8);
+
+CREATE TABLE skenirano (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    FOREIGN KEY (id_kartice) REFERENCES kartica(id) ON UPDATE CASCADE ON DELETE SET NULL,
+    FOREIGN KEY (id_korisnik) REFERENCES korisnik(id) ON UPDATE CASCADE ON DELETE SET NULL
+);

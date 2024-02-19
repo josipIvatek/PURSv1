@@ -21,14 +21,14 @@ CREATE TABLE kartice (
 );
 
 INSERT INTO kartice(nuid) VALUES
-	('ea4cc02e'),
-    ('a3cbda2b'),
-    ('06e5f512'),
-    ('e1f7e82b'),
-    ('51b8e82b'),
-    ('d4f8f21e'),
-    ('b4f8011e'),
-    ('c47daa1e');
+	('EA4CC02E'),
+    ('A3CBDA2B'),
+    ('06E5F512'),
+    ('E1F7E82B'),
+    ('51B8E82B'),
+    ('D4F8F21E'),
+    ('B4F8011E'),
+    ('C47DAA1E');
     
 CREATE TABLE korisnik (
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -36,13 +36,13 @@ CREATE TABLE korisnik (
     prezime CHAR(50) NOT NULL,
     username VARCHAR(50) NOT NULL,
     password BINARY(32) NOT NULL,
-    id_ovlasti INT,
+    id_ovlasti INT NULL,
     FOREIGN KEY (id_ovlasti) REFERENCES ovlasti(id) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
 INSERT INTO korisnik(ime, prezime, username, password, id_ovlasti) VALUES
-	('Josip', 'Ivatek', 'jivatek', UNHEX(SHA2('0000', 256)), 1),
-    ('Stipe', 'Karuza', 'skaruza', UNHEX(SHA2('1986', 256)), 1),
+	('Josip', 'Ivatek', 'jivatek', UNHEX(SHA2('1911', 256)), 1),
+    ('Stipe', 'Karuza', 'skaruza', UNHEX(SHA2('1950', 256)), 1),
     ('Ante', 'Antić', 'aantic', UNHEX(SHA2('1111', 256)), 2),
     ('Ivo', 'Ivić', 'iivic', UNHEX(SHA2('2222', 256)), 2);
     
@@ -50,7 +50,7 @@ CREATE TABLE proizvod (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     ime CHAR(50) NOT NULL,
     cijena INT NOT NULL,
-    id_kartice INT,
+    id_kartice INT NULL,
     FOREIGN KEY (id_kartice) REFERENCES kartice(id) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
@@ -63,9 +63,25 @@ INSERT INTO proizvod(ime, cijena, id_kartice) VALUES
     ('Tirolska kobasica', 6, 6),
     ('Hrenovke', 5, 7),
     ('Jaja', 3, 8);
-    
-CREATE TABLE skeniraniproizvodi (
-	id_kartice INT NOT NULL,
-    
-    
 
+CREATE TABLE skenirano (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    id_kartice INT NULL,
+    id_korisnik INT NULL,
+    FOREIGN KEY (id_kartice) REFERENCES kartice(id) ON UPDATE CASCADE ON DELETE SET NULL,
+    FOREIGN KEY (id_korisnik) REFERENCES korisnik(id) ON UPDATE CASCADE ON DELETE SET NULL
+);
+
+INSERT INTO skenirano(id_kartice, id_korisnik) VALUES
+(1,1);
+
+SELECT * FROM skenirano
+LEFT JOIN kartice ON kartice.id = skenirano.id_kartice
+LEFT JOIN korisnik ON korisnik.id = skenirano.id_korisnik
+LEFT JOIN proizvod ON proizvod.id_kartice = kartice.id;
+
+INSERT INTO skenirano(id_kartice, id_korisnik) VALUES
+(2, 1);
+
+SELECT id FROM kartice
+WHERE nuid = 'b4f8011e'

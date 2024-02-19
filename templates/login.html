@@ -7,13 +7,13 @@
         <link rel="stylesheet" href="{{url_for('static', filename='styles_login.css')}}">
     </head>
     <body>
+        <div class="slika">
+        </div>
         <glavni> 
             <upis>
                 <form action="/login" method="POST">
-                    <label for="username">Username</label>
                     <input type="text" name="username" placeholder="Username" required>
                     <br>
-                    <label for="password">Password</label>
                     <input type="password" name="password" placeholder="Password" required>
                     <br>
                     {%if poruka %}

@@ -1,4 +1,8 @@
 body{
+}
+
+.slika {
+    margin-top: 50px;
     background-image: url(log-background.png);
     background-size: contain;
     background-repeat: no-repeat;
@@ -7,17 +11,17 @@ body{
 }
 
 glavni{
-    margin: 30px 5px 0px 5px;
-    background-color: #ADADAD;
-    border-top: 3px solid #64485C;
-    border-radius: 5px 5px 0px 0px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 upis {
-    position: absolute;
-    top: 30%;
-    left: 40%;
-    padding: 5px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px 60px;
     text-align: center;
     justify-content: center;
     display: flex;
@@ -29,4 +33,12 @@ input {
     margin: 5px
 }
 
+form input {
+    margin-bottom: 5px;
+    padding: 5px 3px;
+}
+
+form button {
+    padding: 10px 20px;
+}
 
