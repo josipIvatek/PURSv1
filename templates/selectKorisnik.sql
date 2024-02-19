@@ -1,0 +1,1 @@
+SELECT id, username, id_ovlasti FROM korisnik WHERE username = '{{user}}' AND password = UNHEX(SHA2('{{pasw}}', 256));

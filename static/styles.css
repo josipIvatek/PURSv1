@@ -1,0 +1,75 @@
+body{
+    background-color: #00ffdd;
+}
+
+.glavni{
+    margin: 10px 5px 0px 5px;
+    background-color: #cbeee8;
+    border-top: 3px solid #1100ff;
+    border-radius: 5px 5px 0px 0px;
+}
+
+header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    }
+
+.lijevo{
+    display: flex;
+    float: left;
+    align-items: center;
+}
+
+.lijevo > p {
+    display: inline;
+    color: #0a093a;
+    margin-right: 20px;
+}
+
+.slika{
+    float: right;
+    justify-self: end;
+    }
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    background-color: #0a093a;
+}
+
+a {
+    margin: 10px;
+    text-decoration: none;
+    color: #cbeee8;
+    }
+
+main {
+    justify-content: center;
+    display: flex;
+}
+
+table {    
+    justify-content: center;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+td, th {
+    border: 1px solid black;
+}
+
+thead{
+
+    text-align: center;
+    padding: 8px;
+    background-color: #0a093a;
+    text-decoration: none;
+    color: #cbeee8;
+}
+
+tbody{
+    background-color: #cbeee8;
+    text-align: center;
+}

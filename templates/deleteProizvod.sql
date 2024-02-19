@@ -1,0 +1,1 @@
+DELETE FROM Proizvod WHERE id = '{{id}}';

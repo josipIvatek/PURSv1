@@ -1,0 +1,32 @@
+body{
+    background-image: url(log-background.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 30vh;
+}
+
+glavni{
+    margin: 30px 5px 0px 5px;
+    background-color: #ADADAD;
+    border-top: 3px solid #64485C;
+    border-radius: 5px 5px 0px 0px;
+}
+
+upis {
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    padding: 5px;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 10px;
+}
+
+input {
+    display: inline-block;
+    margin: 5px
+}
+
+

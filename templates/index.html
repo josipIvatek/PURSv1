@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{naslov}}</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+    </head>
+    <body>
+        <div class="glavni">
+            <header>
+                <div class="lijevi">
+                    <p>{{username}}</p>
+                    <img src="{{url_for('static', filename='user-icon.png')}}" alt="Logo user icon" width="70px">
+                </div>
+                <img class="slika" src="{{url_for('static', filename='icon.png')}}" alt="Icon" width="70px">
+            </header>
+            <nav>
+                <a href="?id=1">Početna stranica</a>
+                {% if ovlasti == 1 %}
+                <a href="/?id=2">Korisnici</a>
+                {% endif %}
+                <a href="?id=3">Proizvodi</a>
+                <a href="{{url_for('logout')}}">Odjava</a>
+            </nav>
+            <main>
+               {%if d==2%}
+               <div>
+                   <table>
+                       <thead>
+                           <th>{{col1}}</th> 
+                           <th>{{col2}}</th> 
+                           <th>{{col3}}</th> 
+                           <th>{{col4}}</th>  
+                           <th>{{col5}}</th>
+                           <th>Delete</th>  
+                        </thead>  
+                        <tbody>
+                            {%for d in data%}
+                            <tr>
+                                <td >{{d.id}}</td>
+                                <td >{{d.ime}}</td>
+                                <td >{{d.prezime}}</td>
+                                <td >{{d.username}}</td>
+                                <td >{{d.id_ovlasti}}</td>
+                                <td><form method="POST" action="/obrisiKorisnika">
+                                        <input type="number" name="id" style="display: none" value="{{d.id}}">
+                                        <button type="submit">IZBRIŠI</button> 
+                                    </form>
+                                </td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>   
+                    </table>
+                    {% if ovlasti == 1 %}
+                <form action="/dodajKorisnika" method="POST">
+                        <label for="ime">Ime</label>
+                        <input type="text" name="ime" placeholder="Ime" required>
+                        <br>
+                        <label for="prezime">Prezime</label>
+                        <input type="text" name="prezime" placeholder="Prezime" required>
+                        <br>
+                        <label for="username">Username</label>
+                        <input type="text" name="username" placeholder="Username" required>
+                        <br>
+                        <label for="lozinka">Lozinka</label>
+                        <input type="text" name="lozinka" placeholder="Lozinka" required>
+                        <br>
+                        <label for="id_ovlasti">Id Ovlasti</label>
+                        <input type="number" name="id_ovlasti" placeholder="Ovlasti" required>
+                        <br>
+                        {%if poruka %}
+                        <p>{{poruka}}</p>
+                        {%endif%}
+                        <br>
+                        <button>Dodaj</button>
+                {% endif %}
+                </div>
+                {%elif d==3%}
+                <div class="proizvodi">
+                <table>
+                    <thead>
+                        <th>{{col1}}</th> 
+                        <th>{{col2}}</th> 
+                        <th>{{col3}}</th> 
+                        <th>{{col4}}</th>  
+                        {% if ovlasti == 1 %}
+                        <th>Delete</th>
+                        {% endif %}  
+                    </thead>  
+                    <tbody>
+                        {%for d in data%}
+                        <tr>
+                            <td >{{d.id}}</td>
+                            <td >{{d.ime}}</td>
+                            <td >{{d.cijena}}</td>
+                            <td >{{d.barkod}}</td>
+                            {% if ovlasti == 1 %}
+                            <td><form method="POST" action="/obrisiProizvod">
+                                <input type="number" name="id" style="display: none" value="{{d.id}}">
+                                <button type="submit">IZBRIŠI</button> 
+                            </form>
+                        </td>
+                            {% endif %}
+                        </tr>
+                        {%endfor%}
+                     </tbody>   
+                </table>
+                {% if ovlasti == 1 %}
+                <form action="/dodajProizovd" method="POST">
+                        <label for="ime">Naziv</label>
+                        <input type="text" name="ime" placeholder="Naziv" required>
+                        <br>
+                        <label for="cijena">Cijena</label>
+                        <input type="number" name="cijena" placeholder="Cijena" required>
+                        <br>
+                        <label for="barkod">Barkod</label>
+                        <input type="text" name="barkod" placeholder="EA 4C C0 2E" required>
+                        <br>
+                        {%if poruka %}
+                        <p>{{poruka}}</p>
+                        {%endif%}
+                        <br>
+                        <button>Dodaj</button>
+                {% endif %}
+                </div>
+                {%elif d==1%}
+                <div>
+                 <b> Skenirajte barkod na proizvodu </b> 
+                </div>
+                {%endif%}
+            </main>
+        </div>        
+    </body>
+</html>

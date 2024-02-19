@@ -1,0 +1,1 @@
+SELECT id, ime, prezime ,username, id_ovlasti FROM korisnik
