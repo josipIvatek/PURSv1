@@ -21,14 +21,14 @@ CREATE TABLE kartice (
 );
 
 INSERT INTO kartice(nuid) VALUES
-	('EA 4C C0 2E'),
-    ('A3 CB DA 2B'),
-    ('06 E5 F5 12'),
-    ('E1 F7 E8 2B'),
-    ('51 B8 E8 2B'),
-    ('D4 F8 F2 1E'),
-    ('B4 F8 01 1E'),
-    ('C4 7D AA 1E');
+	('ea4cc02e'),
+    ('a3cbda2b'),
+    ('06e5f512'),
+    ('e1f7e82b'),
+    ('51b8e82b'),
+    ('d4f8f21e'),
+    ('b4f8011e'),
+    ('c47daa1e');
     
 CREATE TABLE korisnik (
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -63,4 +63,9 @@ INSERT INTO proizvod(ime, cijena, id_kartice) VALUES
     ('Tirolska kobasica', 6, 6),
     ('Hrenovke', 5, 7),
     ('Jaja', 3, 8);
+    
+CREATE TABLE skeniraniproizvodi (
+	id_kartice INT NOT NULL,
+    
+    
 

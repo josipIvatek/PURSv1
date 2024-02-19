@@ -115,7 +115,7 @@
                         <input type="number" name="cijena" placeholder="Cijena" required>
                         <br>
                         <label for="barkod">Barkod</label>
-                        <input type="text" name="barkod" placeholder="EA 4C C0 2E" required>
+                        <input type="text" name="barkod" placeholder="ea4cc02e" required>
                         <br>
                         {%if poruka %}
                         <p>{{poruka}}</p>
@@ -127,6 +127,22 @@
                 {%elif d==1%}
                 <div>
                  <b> Skenirajte barkod na proizvodu </b> 
+                 {%if barkod%}
+                 <table>
+                    <thead>
+                        <th>{{col1}}</th> 
+                        <th>{{col2}}</th> 
+                        <th>{{col3}}</th> 
+                    </thead>  
+                    <tbody>
+                        <tr>
+                            <td >{{data.ime}}</td>
+                            <td >{{data.cijena}}</td>
+                            <td >{{data.barkod}}</td>
+                        </tr>
+                    </tbody>                    
+                </table>
+                 {%endif%}
                 </div>
                 {%endif%}
             </main>

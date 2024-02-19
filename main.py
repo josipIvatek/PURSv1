@@ -11,7 +11,7 @@ def before_request_func():
     g.connection = MySQLdb.connect(host="localhost", user="app", passwd="1234", db="Seminarski")
     g.cursor = g.connection.cursor()
 
-    if request.path == '/login' or request.path.startswith('/static'):
+    if request.path == '/login' or request.path.startswith('/static') or request.path.startswith('/rfid'):
         return
     if session.get('username') is None:
         return redirect(url_for('login'))
@@ -78,25 +78,19 @@ def check():
         return render_template('login.html', naslov='Stranica za prijavu', poruka='Uneseni su pogrešni podatci!')
 
 
-@app.post('/temperatura')
-def rect():
-    temp = request.json.get('temperatura')
-    if temp is not None:
-        global temperatura
-        temperatura.append(temp)
-        return 'Uspješno ste upisali', 201
-    else:
-        return 'Niste upisali ispravan ključ', 404
+@app.post('/rfid')
+def scanNUID():
+    response = make_response()
+    nuid = request.data.decode("utf-8")
+    g.cursor.execute(render_template('getProizvod.sql', nuid=nuid))
+    proizvod = g.cursor.fetchall()
+    print(nuid)
+    print(proizvod)
+    
+    return response, 200
 
-@app.get('/temperatura')
-def last():
-    global temperatura
-    json = {
-        "temperatura":temperatura[-1]
-    }
-    resp = make_response(json, 202)
-    return resp
 
+        
 
 @app.post('/obrisiKorisnika')
 def deleteUser():
@@ -132,4 +126,4 @@ def addProizvod():
     return redirect('/?id=1')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=90)
+    app.run(host='0.0.0.0', port=80)

@@ -6,8 +6,8 @@ app = Flask("Test za seminar")
 @app.post('/rfid')
 def post_rfid():
     response = make_response()
-
-    print(request.data)
+    nuid = request.data.decode("utf-8")
+    print(nuid)
 
     response.data = 'Uspješno ste postavili NUID'
     response.status_code = 201

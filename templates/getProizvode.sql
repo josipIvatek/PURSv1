@@ -1,2 +1,2 @@
-select proizvod.id, ime, cijena, kartice.nuid from proizvod
-LEFT JOIN kartice on kartice.id = proizvod.id_kartice
+SELECT proizvod.id, ime, cijena, kartice.nuid FROM proizvod
+LEFT JOIN kartice ON kartice.id = proizvod.id_kartice

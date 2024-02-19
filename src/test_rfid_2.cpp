@@ -32,7 +32,7 @@ StaticJsonDocument<200> doc;
 const char* SSID = "MOJINTERNET";
 const char* PASSWORD = "nikokaohajdukizsplita";
 
-const char *serverName = "http://192.168.223.113/rfid"; //Domena servera
+const char *serverName = "http://192.168.22.113/rfid"; //Domena servera
 HTTPClient http; //Instanca klase
 
 void setup() { 
