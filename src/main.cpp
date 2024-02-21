@@ -29,11 +29,13 @@ byte nuidPICC[4];
 // Kreiranje json dokumenta
 StaticJsonDocument<200> doc;
 
-const char* SSID = "Komusar-O-2.4G";
-const char* PASSWORD = "Komusar11";
-const int USER_ID = 4;
+const char* SSID = "MOJINTERNET";
+const char* PASSWORD = "nikokaohajdukizsplita";
 
-const char *serverName = "http://192.168.100.24:80/rfid"; //Domena servera
+//const int USER_ID = 3; // Ante Antić 
+const int USER_ID = 4; // Ivo Ivić
+
+const char *serverName = "http://192.168.22.113:80/rfid"; //Domena servera
 HTTPClient http; //Instanca klase
 
 void setup() { 
